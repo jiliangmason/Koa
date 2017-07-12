@@ -47,7 +47,7 @@ module.exports = function (opts) {
             //console.log(content);
 
             var message = common.formatMessage(content.xml);
-            //console.log(message)
+            console.log(message)
         }
 
     }

@@ -28,6 +28,6 @@ var app = new koa();
 
 app.use(auth(config.wechat));
 
-app.listen(80);
-console.log('Listening port 80');
+app.listen(3000);
+console.log('Listening port 3000');
 

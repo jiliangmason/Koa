@@ -3,6 +3,7 @@
  */
 var Promise = require('bluebird');
 var request = Promise.promisify(require('request'));
+var util = require('../middleware/common');
 
 var prefix = 'https://api.weixin.qq.com/';
 var config = {
@@ -75,6 +76,16 @@ GetAccessToken.prototype.updateAccessToken = function () {
             });
     });
 
+};
+
+GetAccessToken.prototype.reply = function () {
+    var content = this.body;
+    var message = this.weixin;
+
+    var xml = util.tpl(content, message);
+    this.status = 200;
+    this.type = 'application/xml';
+    this.body = xml;
 };
 
 module.exports = GetAccessToken;

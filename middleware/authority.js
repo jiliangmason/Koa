@@ -9,7 +9,7 @@ var common = require('./common');
 var GetAccessToken = require('../constructor/wechat');
 
 module.exports = function (opts) {
-    // var get_accessToken = new GetAccessToken(opts);
+    var get_accessToken = new GetAccessToken(opts);
 
     return function* (next) {
         //console.log(this.query);
@@ -49,7 +49,7 @@ module.exports = function (opts) {
             let message = common.formatMessage(content.xml);
             console.log(message);
 
-            if (message.MsgType === 'event') {
+/*            if (message.MsgType === 'event') {
                 if (message.Event === 'subscribe') {
                     let now = new Date().getTime();
                     this.status = 200;
@@ -66,7 +66,11 @@ module.exports = function (opts) {
                     return
 
                 }
-            }
+            }*/
+            this.weixin = message;
+            yield handler.call(this, next);
+
+            get_accessToken.replay.call(this);
         }
 
     }
